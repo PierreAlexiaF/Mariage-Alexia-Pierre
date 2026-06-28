@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP — Alexia + Pierre</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">
+      <img class="nav-logo" src="images/logo-transparent.png" alt="Alexia + Pierre">
+    </a>
+    <ul class="nav-links">
+      <li><a href="infos-pratiques.html">Infos pratiques</a></li>
+      <li><a href="liste-de-mariage.html">Liste de mariage</a></li>
+      <li><a href="infos-complementaires.html">FAQ</a></li>
+      <li><a href="rsvp.html" class="nav-cta active">Confirmer ma présence</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="infos-pratiques.html">Infos pratiques</a>
+    <a href="liste-de-mariage.html">Liste de mariage</a>
+    <a href="infos-complementaires.html">FAQ</a>
+    <a href="rsvp.html" class="mobile-cta-btn">Confirmer ma présence</a>
+  </div>
+
+  <header style="padding: 140px 24px 60px; text-align:center; background: var(--creme);">
+    <p class="section-subtitle">Nous avons hâte de vous voir</p>
+    <h1 style="font-size:clamp(36px,6vw,64px); font-weight:300; color:var(--rouge); letter-spacing:0.04em;">
+      Confirmer ma présence
+    </h1>
+  </header>
+
+  <section class="section" style="padding-top: 48px;">
+    <div class="rsvp-form">
+
+      <div class="rsvp-deadline">
+        <span class="rsvp-deadline-icon">📅</span>
+        <div>
+          Date limite de réponse : <strong>30 septembre 2026</strong><br>
+          <span style="font-size:12px; color: var(--gris);">Merci de confirmer avant cette date pour faciliter notre organisation.</span>
+        </div>
+      </div>
+
+      <form id="rsvpForm" action="#merci" method="GET" novalidate>
+
+        <!-- Identité -->
+        <div class="form-group">
+          <label class="form-label" for="prenom-nom">Prénom et nom <span class="required">*</span></label>
+          <input class="form-input" type="text" id="prenom-nom" name="nom" placeholder="ex : Marie Dupont" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email <span class="required">*</span></label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="votre@email.com" required>
+        </div>
+
+        <!-- Présence -->
+        <div class="form-group">
+          <label class="form-label">Serez-vous présent(e) ? <span class="required">*</span></label>
+          <div class="form-radio-group">
+            <label class="form-radio-label">
+              <input type="radio" name="presence" value="oui" required>
+              🥂 Oui, avec plaisir !
+            </label>
+            <label class="form-radio-label">
+              <input type="radio" name="presence" value="non">
+              😢 Je ne pourrai pas venir
+            </label>
+          </div>
+        </div>
+
+        <!-- SI NON -->
+        <div class="form-group conditional" id="bloc-absent">
+          <label class="form-label" for="message-absent">Un mot pour les mariés</label>
+          <textarea class="form-textarea" id="message-absent" name="message_absent" placeholder="Laissez-nous un message…" rows="4"></textarea>
+        </div>
+
+        <!-- SI OUI -->
+        <div class="conditional" id="bloc-present">
+
+          <!-- Accompagnants -->
+          <div class="form-group">
+            <label class="form-label" for="nb-accompagnants">Nombre d'accompagnants adultes <span class="required">*</span></label>
+            <select class="form-select" id="nb-accompagnants" name="nb_accompagnants">
+              <option value="0">Je viens seul(e)</option>
+              <option value="1">+ 1 personne</option>
+              <option value="2">+ 2 personnes</option>
+              <option value="3">+ 3 personnes</option>
+              <option value="4">+ 4 personnes</option>
+              <option value="5">+ 5 personnes</option>
+            </select>
+          </div>
+
+          <div class="form-group conditional" id="bloc-accompagnants">
+            <label class="form-label">Prénom(s) de vos accompagnants</label>
+            <div class="companions-list" id="companions-list"></div>
+          </div>
+
+          <!-- Enfants -->
+          <div class="form-group" style="background: white; border: 1px solid rgba(0,0,0,0.08); padding: 24px 28px;">
+            <label class="form-label">Venez-vous avec des enfants ?</label>
+            <p style="font-size:13px; color:var(--gris); margin-bottom:16px; line-height:1.7;">
+              Notre mariage est pensé comme une fête pour adultes — nous préférons que vous veniez sans enfants pour profiter pleinement de la soirée. Si vous avez des contraintes particulières, n'hésitez pas à nous le préciser ci-dessous ou à nous contacter directement.
+            </p>
+            <div class="form-radio-group">
+              <label class="form-radio-label">
+                <input type="radio" name="enfants" value="non" checked> Non
+              </label>
+              <label class="form-radio-label">
+                <input type="radio" name="enfants" value="oui"> Oui, j'ai une contrainte
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group conditional" id="bloc-enfants" style="margin-top:12px;">
+            <label class="form-label" for="detail-enfants">Précisez</label>
+            <textarea class="form-textarea" id="detail-enfants" name="detail_enfants" placeholder="Nombre d'enfants, âge, contrainte particulière…" rows="3"></textarea>
+          </div>
+
+          <!-- Allergies -->
+          <div class="form-group">
+            <label class="form-label">Régimes alimentaires & allergies</label>
+            <div class="form-check-group" style="margin-bottom:12px;">
+              <label class="form-check-label"><input type="checkbox" name="regime" value="vegetarien"> Végétarien</label>
+              <label class="form-check-label"><input type="checkbox" name="regime" value="vegan"> Vegan</label>
+              <label class="form-check-label"><input type="checkbox" name="regime" value="sans-gluten"> Sans gluten</label>
+              <label class="form-check-label"><input type="checkbox" name="regime" value="sans-lactose"> Sans lactose</label>
+              <label class="form-check-label"><input type="checkbox" name="regime" value="halal"> Halal</label>
+            </div>
+            <input class="form-input" type="text" name="allergies_autres" placeholder="Autre allergie ou précision…">
+          </div>
+
+          <!-- Navette -->
+          <div class="form-group">
+            <label class="form-label">Besoin d'une navette retour ? <span class="required">*</span></label>
+            <p style="font-size:13px; color:var(--gris); margin-bottom:12px; line-height:1.6;">Des navettes seront organisées le soir à partir de minuit pour vous ramener vers vos hébergements.</p>
+            <div class="form-radio-group">
+              <label class="form-radio-label"><input type="radio" name="navette" value="oui"> Oui</label>
+              <label class="form-radio-label"><input type="radio" name="navette" value="non"> Non</label>
+              <label class="form-radio-label"><input type="radio" name="navette" value="peut-etre"> Je ne sais pas encore</label>
+            </div>
+          </div>
+
+          <div class="form-group conditional" id="bloc-navette">
+            <label class="form-label" for="ville-depart">Lieu de dépose souhaité</label>
+            <input class="form-input" type="text" id="ville-depart" name="ville_depart" placeholder="ex : Caen centre, hôtel…">
+          </div>
+
+        </div>
+        <!-- /bloc-present -->
+
+        <!-- Message libre -->
+        <div class="form-group">
+          <label class="form-label" for="message-libre">Un message pour nous ?</label>
+          <textarea class="form-textarea" id="message-libre" name="message_libre" placeholder="Questions, surprises, déclarations d'amour aux mariés…" rows="4"></textarea>
+        </div>
+
+        <div style="text-align:center; margin-top:40px;">
+          <button type="submit" class="btn btn-rouge" style="min-width:260px; font-size:12px;">
+            Envoyer ma réponse
+          </button>
+        </div>
+
+      </form>
+    </div><!-- /rsvp-form -->
+
+    <!-- Visuel couple — pleine largeur de la section -->
+    <div style="margin-top: 60px; max-width: 900px; margin-left: auto; margin-right: auto;">
+      <img
+        src="images/hero-photo-desktop.jpg"
+        alt="Alexia & Pierre"
+        style="width: 100%; display: block;"
+      >
+    </div>
+
+  </section>
+
+  <!-- Page merci -->
+  <div class="merci-page" id="merciPage" style="display:none;">
+    <img src="images/logo-transparent.png" alt="Alexia + Pierre" style="height:80px; mix-blend-mode:multiply; margin-bottom:32px;" onerror="this.style.display='none'">
+    <h1>Merci !</h1>
+    <p id="merciText">Votre réponse a bien été enregistrée. Nous sommes impatients de vous retrouver au Château de Canon le 26 juin 2027 !</p>
+    <a href="liste-de-mariage.html" class="btn btn-outline" style="margin-right:12px;">Liste de mariage</a>
+    <a href="infos-pratiques.html" class="btn btn-rouge">Infos pratiques</a>
+  </div>
+
+  <footer>
+    <img class="footer-logo" src="images/logo-transparent.png" alt="Alexia + Pierre">
+    <p>Alexia &amp; Pierre · 26 juin 2027 · Château de Canon, Mézidon-Canon, Normandie</p>
+    <p style="margin-top:16px;">
+      <a href="infos-pratiques.html#faq">FAQ</a>
+      <a href="rsvp.html">Confirmer ma présence</a>
+      <a href="mailto:Feron.p@gmail.com?cc=Martine.alexia22@gmail.com">Nous contacter</a>
+    </p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    const radiosPresence = document.querySelectorAll('input[name="presence"]');
+    const blocAbsent = document.getElementById('bloc-absent');
+    const blocPresent = document.getElementById('bloc-present');
+    radiosPresence.forEach(radio => {
+      radio.addEventListener('change', () => {
+        const isOui = radio.value === 'oui';
+        blocPresent.classList.toggle('visible', isOui);
+        blocAbsent.classList.toggle('visible', !isOui);
+      });
+    });
+
+    const selectAccompagnants = document.getElementById('nb-accompagnants');
+    const blocAccompagnants = document.getElementById('bloc-accompagnants');
+    const companionsList = document.getElementById('companions-list');
+    selectAccompagnants.addEventListener('change', () => {
+      const n = parseInt(selectAccompagnants.value, 10);
+      companionsList.innerHTML = '';
+      if (n > 0) {
+        blocAccompagnants.classList.add('visible');
+        for (let i = 1; i <= n; i++) {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'form-input';
+          input.name = `accompagnant_${i}`;
+          input.placeholder = `Prénom de l'accompagnant ${i}`;
+          companionsList.appendChild(input);
+        }
+      } else {
+        blocAccompagnants.classList.remove('visible');
+      }
+    });
+
+    document.querySelectorAll('input[name="enfants"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('bloc-enfants').classList.toggle('visible', radio.value === 'oui');
+      });
+    });
+
+    document.querySelectorAll('input[name="navette"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('bloc-navette').classList.toggle('visible', radio.value === 'oui');
+      });
+    });
+
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const presence = document.querySelector('input[name="presence"]:checked');
+      if (!presence) { alert('Merci d\'indiquer si vous serez présent(e).'); return; }
+      const nom = document.getElementById('prenom-nom').value.trim();
+      if (!nom) { alert('Merci de renseigner votre nom.'); return; }
+      const isOui = presence.value === 'oui';
+      document.getElementById('merciText').textContent = isOui
+        ? `Votre réponse a bien été enregistrée. Nous sommes impatients de vous retrouver au Château de Canon le 26 juin 2027 !`
+        : `Nous sommes désolés de ne pas pouvoir vous avoir parmi nous, mais merci pour votre message !`;
+      this.closest('section').style.display = 'none';
+      document.getElementById('merciPage').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
