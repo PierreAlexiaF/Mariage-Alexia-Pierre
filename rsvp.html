@@ -137,21 +137,6 @@
             <input class="form-input" type="text" name="allergies_autres" placeholder="Autre allergie ou précision…">
           </div>
 
-          <!-- Navette -->
-          <div class="form-group">
-            <label class="form-label">Besoin d'une navette retour ? <span class="required">*</span></label>
-            <p style="font-size:13px; color:var(--gris); margin-bottom:12px; line-height:1.6;">Des navettes seront organisées le soir à partir de minuit pour vous ramener vers vos hébergements.</p>
-            <div class="form-radio-group">
-              <label class="form-radio-label"><input type="radio" name="navette" value="oui"> Oui</label>
-              <label class="form-radio-label"><input type="radio" name="navette" value="non"> Non</label>
-              <label class="form-radio-label"><input type="radio" name="navette" value="peut-etre"> Je ne sais pas encore</label>
-            </div>
-          </div>
-
-          <div class="form-group conditional" id="bloc-navette">
-            <label class="form-label" for="ville-depart">Lieu de dépose souhaité</label>
-            <input class="form-input" type="text" id="ville-depart" name="ville_depart" placeholder="ex : Caen centre, hôtel…">
-          </div>
 
         </div>
         <!-- /bloc-present -->
@@ -197,7 +182,7 @@
     <p style="margin-top:16px;">
       <a href="infos-pratiques.html#faq">FAQ</a>
       <a href="rsvp.html">Confirmer ma présence</a>
-      <a href="mailto:Feron.p@gmail.com?cc=Martine.alexia22@gmail.com">Nous contacter</a>
+      <a href="mailto:Feron.p@gmail.com?cc=Martin.alexia22@gmail.com">Nous contacter</a>
     </p>
   </footer>
 
@@ -257,12 +242,6 @@
       });
     });
 
-    document.querySelectorAll('input[name="navette"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.getElementById('bloc-navette').classList.toggle('visible', radio.value === 'oui');
-      });
-    });
-
     document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const presence = document.querySelector('input[name="presence"]:checked');
@@ -272,9 +251,7 @@
       const formData = new FormData(this);
       try {
         const response = await fetch('https://formspree.io/f/mbdvyapa', {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+          method: 'POST', body: formData, headers: { 'Accept': 'application/json' }
         });
         if (response.ok) {
           const isOui = presence.value === 'oui';
